@@ -7,4 +7,7 @@ target 'SnsLogin' do
 
   # Pods for SnsLogin
 
+pod 'SnapKit', '~> 4.0.0'
+pod 'naveridlogin-sdk-ios'
+
 end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		562BCB414180F24208D17F3E /* Pods_SnsLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C1D9C7104B758E742AD936 /* Pods_SnsLogin.framework */; };
 		DF86B02F21BA50400007756F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86B02E21BA50400007756F /* AppDelegate.swift */; };
 		DF86B03121BA50400007756F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86B03021BA50400007756F /* ViewController.swift */; };
 		DF86B03421BA50400007756F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF86B03221BA50400007756F /* Main.storyboard */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		694D3DBEFAA5984634BFE67F /* Pods-SnsLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnsLogin.release.xcconfig"; path = "Target Support Files/Pods-SnsLogin/Pods-SnsLogin.release.xcconfig"; sourceTree = "<group>"; };
+		A0AD33EA29304DCEE8C49BAA /* Pods-SnsLogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnsLogin.debug.xcconfig"; path = "Target Support Files/Pods-SnsLogin/Pods-SnsLogin.debug.xcconfig"; sourceTree = "<group>"; };
+		A5C1D9C7104B758E742AD936 /* Pods_SnsLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnsLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF86B02B21BA50400007756F /* SnsLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnsLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF86B02E21BA50400007756F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF86B03021BA50400007756F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				562BCB414180F24208D17F3E /* Pods_SnsLogin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		859FCACE2B45AA8E1C435B0C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A0AD33EA29304DCEE8C49BAA /* Pods-SnsLogin.debug.xcconfig */,
+				694D3DBEFAA5984634BFE67F /* Pods-SnsLogin.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		DF86B02221BA50400007756F = {
 			isa = PBXGroup;
 			children = (
 				DF86B02D21BA50400007756F /* SnsLogin */,
 				DF86B02C21BA50400007756F /* Products */,
+				859FCACE2B45AA8E1C435B0C /* Pods */,
+				E683869EBCC09D7CF87F26C5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = SnsLogin;
 			sourceTree = "<group>";
 		};
+		E683869EBCC09D7CF87F26C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5C1D9C7104B758E742AD936 /* Pods_SnsLogin.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF86B03D21BA50400007756F /* Build configuration list for PBXNativeTarget "SnsLogin" */;
 			buildPhases = (
+				EEA0582B3DD10F04CD70D1B7 /* [CP] Check Pods Manifest.lock */,
 				DF86B02721BA50400007756F /* Sources */,
 				DF86B02821BA50400007756F /* Frameworks */,
 				DF86B02921BA50400007756F /* Resources */,
+				BBB9D20500320A03EB6D87F2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,55 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BBB9D20500320A03EB6D87F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SnsLogin/Pods-SnsLogin-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SnsLogin/Pods-SnsLogin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEA0582B3DD10F04CD70D1B7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SnsLogin-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DF86B02721BA50400007756F /* Sources */ = {
@@ -280,11 +355,13 @@
 		};
 		DF86B03E21BA50400007756F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0AD33EA29304DCEE8C49BAA /* Pods-SnsLogin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 42U234FGMT;
 				INFOPLIST_FILE = SnsLogin/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,11 +375,13 @@
 		};
 		DF86B03F21BA50400007756F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 694D3DBEFAA5984634BFE67F /* Pods-SnsLogin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 42U234FGMT;
 				INFOPLIST_FILE = SnsLogin/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

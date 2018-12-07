@@ -18,6 +18,13 @@ class ViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         return button
     }()
 
+    let ktLoginBtn : UIButton = {
+        let button = UIButton()
+        button.setTitle("카카오톡 로그인", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        return button
+    }()
+    
 
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
 
@@ -25,6 +32,7 @@ class ViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        UserDefaults.standard.set(true, forKey: "kakaologin")
         UserDefaults.standard.set(true, forKey: "naverlogin")
         self.view.backgroundColor = .white
         self.setButtonSelectors()
@@ -36,6 +44,7 @@ class ViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     private func setButtonSelectors() {
 
         self.naverLoginBtn.addTarget(self, action: #selector(touchUpNaverloginBtn(_:)), for: .touchUpInside)
+        self.ktLoginBtn.addTarget(self, action: #selector(touchUpKtLoginBtn(_:)), for: .touchUpInside)
     }
 
 
@@ -43,9 +52,17 @@ class ViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     func setupLayout() {
 
         view.addSubview(naverLoginBtn)
+        view.addSubview(ktLoginBtn)
 
         naverLoginBtn.snp.makeConstraints { (const) in
             const.top.equalToSuperview().offset(160)
+            const.centerX.equalToSuperview()
+            const.width.equalToSuperview().multipliedBy(0.4)
+            const.height.equalToSuperview().multipliedBy(0.08)
+        }
+        
+        ktLoginBtn.snp.makeConstraints { (const) in
+            const.top.equalTo(naverLoginBtn).offset(100)
             const.centerX.equalToSuperview()
             const.width.equalToSuperview().multipliedBy(0.4)
             const.height.equalToSuperview().multipliedBy(0.08)
@@ -114,10 +131,46 @@ class ViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
             UserDefaults.standard.set(true, forKey: "naverlogin")
             self.naverLoginBtn.setImage(#imageLiteral(resourceName: "naverlogin"), for: .normal)
             loginInstance?.requestDeleteToken()
-            
-            
         }
-
     }
+    
+    @objc func touchUpKtLoginBtn(_ sender : UIButton) {
+        
+        if UserDefaults.standard.bool(forKey: "kakaologin") {
+            UserDefaults.standard.set(false, forKey: "kakaologin")
+       
+        let session: KOSession = KOSession.shared()
+        if session.isOpen() {
+            session.close()
+        }
+        session.presentingViewController = self
+        session.open { (error) in
+            
+            if error != nil {
+                print(error!)
+            } else if session.isOpen() {
+                
+                KOSessionTask.meTask(completionHandler: { [unowned self](userInfo, error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        
+                        guard let token = KOSession.shared().accessToken else { return }
+//                        self.sendToken(token, type: .kakao)
+                        self.ktLoginBtn.setTitle("카카오톡 로그아웃", for: .normal)
+                        print("카카오 로그인")
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                })
+            }
+        }
+        } else {
+            
+            UserDefaults.standard.set(true, forKey: "kakaologin")
+            self.ktLoginBtn.setTitle("카카오톡 로그인", for: .normal)
+            print("카카오 로그아웃")
+        }
+ 
+    }//카톡로그인
 }
 

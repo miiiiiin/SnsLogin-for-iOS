@@ -136,41 +136,43 @@ class ViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     
     @objc func touchUpKtLoginBtn(_ sender : UIButton) {
         
-        if UserDefaults.standard.bool(forKey: "kakaologin") {
-            UserDefaults.standard.set(false, forKey: "kakaologin")
-       
-        let session: KOSession = KOSession.shared()
-        if session.isOpen() {
-            session.close()
-        }
-        session.presentingViewController = self
-        session.open { (error) in
-            
-            if error != nil {
-                print(error!)
-            } else if session.isOpen() {
-                
-                KOSessionTask.meTask(completionHandler: { [unowned self](userInfo, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        
-                        guard let token = KOSession.shared().accessToken else { return }
-//                        self.sendToken(token, type: .kakao)
-                        self.ktLoginBtn.setTitle("카카오톡 로그아웃", for: .normal)
-                        print("카카오 로그인")
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                })
+            if UserDefaults.standard.bool(forKey: "kakaologin") {
+                UserDefaults.standard.set(false, forKey: "kakaologin")
+           
+            let session: KOSession = KOSession.shared()
+            if session.isOpen() {
+                session.close()
             }
-        }
+            session.presentingViewController = self
+            session.open { (error) in
+                
+                if error != nil {
+                    print(error!)
+                } else if session.isOpen() {
+                    KOSessionTask.userMeTask(completion: { (error, me) in
+                        if let me = me as KOUserMe? {
+                            print("카톡비번id: \(String(describing: me.id))")
+                            UserDefaults.standard.set(me.id, forKey: "kakao")
+                        
+                        if let error = error {
+                            print(error)
+                        } else {
+                            guard let token = KOSession.shared().accessToken else { return }
+    //                        self.sendToken(token, type: .kakao)
+                            self.ktLoginBtn.setTitle("카카오톡 로그아웃", for: .normal)
+                            print("카카오 로그인")
+                            self.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    })
+                }
+            }
         } else {
             
             UserDefaults.standard.set(true, forKey: "kakaologin")
             self.ktLoginBtn.setTitle("카카오톡 로그인", for: .normal)
             print("카카오 로그아웃")
         }
- 
     }//카톡로그인
 }
 

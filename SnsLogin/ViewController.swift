@@ -107,7 +107,7 @@ class ViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         
         if UserDefaults.standard.bool(forKey: "naverlogin") {
             UserDefaults.standard.set(false, forKey: "naverlogin")
-            self.naverLoginBtn.setImage(#imageLiteral(resourceName: "naverlogin"), for: .normal)
+            self.naverLoginBtn.setImage(#imageLiteral(resourceName: "naverlogout"), for: .normal)
             naverLogin()
         } else {
             

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		562BCB414180F24208D17F3E /* Pods_SnsLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C1D9C7104B758E742AD936 /* Pods_SnsLogin.framework */; };
+		DF4B6A8821BE2E7300E3D584 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF4B6A8721BE2E7200E3D584 /* credentials.plist */; };
 		DF86B02F21BA50400007756F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86B02E21BA50400007756F /* AppDelegate.swift */; };
 		DF86B03121BA50400007756F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86B03021BA50400007756F /* ViewController.swift */; };
 		DF86B03621BA50400007756F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF86B03521BA50400007756F /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 		694D3DBEFAA5984634BFE67F /* Pods-SnsLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnsLogin.release.xcconfig"; path = "Target Support Files/Pods-SnsLogin/Pods-SnsLogin.release.xcconfig"; sourceTree = "<group>"; };
 		A0AD33EA29304DCEE8C49BAA /* Pods-SnsLogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnsLogin.debug.xcconfig"; path = "Target Support Files/Pods-SnsLogin/Pods-SnsLogin.debug.xcconfig"; sourceTree = "<group>"; };
 		A5C1D9C7104B758E742AD936 /* Pods_SnsLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnsLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF4B6A8721BE2E7200E3D584 /* credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = credentials.plist; path = ../../../Downloads/credentials.plist; sourceTree = "<group>"; };
 		DF86B02B21BA50400007756F /* SnsLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnsLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF86B02E21BA50400007756F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF86B03021BA50400007756F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		DF86B02221BA50400007756F = {
 			isa = PBXGroup;
 			children = (
+				DF4B6A8721BE2E7200E3D584 /* credentials.plist */,
 				DF86B02D21BA50400007756F /* SnsLogin */,
 				DF86B02C21BA50400007756F /* Products */,
 				859FCACE2B45AA8E1C435B0C /* Pods */,
@@ -106,6 +109,7 @@
 				DF86B02821BA50400007756F /* Frameworks */,
 				DF86B02921BA50400007756F /* Resources */,
 				BBB9D20500320A03EB6D87F2 /* [CP] Embed Pods Frameworks */,
+				31DC286BAA65A069E3F1DAC3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -154,6 +158,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF4B6A8821BE2E7300E3D584 /* credentials.plist in Resources */,
 				DF86B03921BA50400007756F /* LaunchScreen.storyboard in Resources */,
 				DF86B03621BA50400007756F /* Assets.xcassets in Resources */,
 			);
@@ -162,6 +167,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		31DC286BAA65A069E3F1DAC3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SnsLogin/Pods-SnsLogin-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SnsLogin/Pods-SnsLogin-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BBB9D20500320A03EB6D87F2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -176,6 +203,8 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework",
 			);
@@ -188,6 +217,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
 			);

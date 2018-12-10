@@ -13,4 +13,5 @@ pod 'FBSDKCoreKit', '~> 4.38.0'
 pod 'FBSDKLoginKit', '~> 4.38.0'
 pod 'FacebookCore'
 pod 'FacebookLogin'
+pod 'GoogleSignIn'
 end

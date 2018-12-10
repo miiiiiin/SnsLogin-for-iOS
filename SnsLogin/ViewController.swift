@@ -49,7 +49,6 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
         button.isHidden = true
         return button
     }()
-    
 
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
 
@@ -183,6 +182,6 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
             GIDSignIn.sharedInstance().signOut()
             googleLoginBtn.isHidden = false
             googleLogoutBtn.isHidden = true
-    }//구글로그인
+    }//구글로그아웃
 }
 

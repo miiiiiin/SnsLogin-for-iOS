@@ -95,6 +95,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             // [START_EXCLUDE]
             
             print("Sign-in Success \(user.profile.email)")
+            print("Sign-in Success \(userId)")
+            print("Sign-in Success \(fullName)")
+            print("Sign-in Success \(givenName)")
 
             NotificationCenter.default.post(
                 name: Notification.Name(rawValue: "ToggleAuthUINotification"),

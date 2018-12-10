@@ -9,5 +9,8 @@ target 'SnsLogin' do
 
 pod 'SnapKit', '~> 4.0.0'
 pod 'naveridlogin-sdk-ios'
-
+pod 'FBSDKCoreKit', '~> 4.38.0'
+pod 'FBSDKLoginKit', '~> 4.38.0'
+pod 'FacebookCore'
+pod 'FacebookLogin'
 end

@@ -9,6 +9,9 @@
 import UIKit
 import NaverThirdPartyLogin
 import SnapKit
+import FacebookLogin
+import FacebookCore
+import FBSDKLoginKit
 
 class ViewController: UIViewController {
 
@@ -25,6 +28,13 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let fbLoginBtn : UIButton = {
+        let button = UIButton()
+        button.setTitle("페이스북 로그인", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        return button
+    }()
+    
 
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
 
@@ -34,17 +44,17 @@ class ViewController: UIViewController {
 
         UserDefaults.standard.set(true, forKey: "kakaologin")
         UserDefaults.standard.set(true, forKey: "naverlogin")
+        UserDefaults.standard.set(true, forKey: "fblogin")
         self.view.backgroundColor = .white
         self.setButtonSelectors()
         self.setupLayout()
-
     }
-
 
     private func setButtonSelectors() {
 
         self.naverLoginBtn.addTarget(self, action: #selector(touchUpNaverloginBtn(_:)), for: .touchUpInside)
         self.ktLoginBtn.addTarget(self, action: #selector(touchUpKtLoginBtn(_:)), for: .touchUpInside)
+        self.fbLoginBtn.addTarget(self, action: #selector(touchUpFbLoginBtn(_:)), for: .touchUpInside)
     }
 
 
@@ -53,6 +63,7 @@ class ViewController: UIViewController {
 
         view.addSubview(naverLoginBtn)
         view.addSubview(ktLoginBtn)
+        view.addSubview(fbLoginBtn)
 
         naverLoginBtn.snp.makeConstraints { (const) in
             const.top.equalToSuperview().offset(160)
@@ -67,7 +78,13 @@ class ViewController: UIViewController {
             const.width.equalToSuperview().multipliedBy(0.4)
             const.height.equalToSuperview().multipliedBy(0.08)
         }
-
+        
+        fbLoginBtn.snp.makeConstraints { (const) in
+            const.top.equalTo(ktLoginBtn).offset(100)
+            const.centerX.equalToSuperview()
+            const.width.equalToSuperview().multipliedBy(0.4)
+            const.height.equalToSuperview().multipliedBy(0.08)
+        }
     }
 
 //    func naverLogin() {
@@ -117,6 +134,34 @@ class ViewController: UIViewController {
 //        print(error)
 //    }
 
+    
+    func fbLogin() {
+        
+        let loginManager = LoginManager()
+        loginManager.logOut()
+        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { (result) in
+            print("페북 : \(result)")
+            
+            switch result {
+            case .failed(let error): print(error.localizedDescription)
+                
+                //                self.presentSimpleAlert(title: "Facebook Error", message: "페이스북 서버에서 로그인이 실패했습니다.\n에러메세지:\(error.localizedDescription)", nil)
+                
+            case .cancelled: print("User cancelled login.")
+            case .success(grantedPermissions: let grantedPermission, declinedPermissions: let declinedPermissions, token: let accessToken):
+                print("grantedPermission:", grantedPermission)
+                print("declinedPermissions:", declinedPermissions)
+//                self.sendToken(accessToken.authenticationToken, type: .facebook)
+                
+                if let id = accessToken.userId {
+                    print("페북id: \(String(describing: id))")
+                    UserDefaults.standard.set(id, forKey: "facebook")
+                    
+                     self.fbLoginBtn.setTitle("페이스북 로그아웃", for: .normal)
+                }
+            }
+        }
+    }
 
     @objc func touchUpNaverloginBtn(_ sender : UIButton) {
 
@@ -173,5 +218,23 @@ class ViewController: UIViewController {
             print("카카오 로그아웃")
         }
     }//카톡로그인
+    
+    @objc func touchUpFbLoginBtn(_ sender : UIButton) {
+        
+        print(UserDefaults.standard.string(forKey: "fblogin") as Any)
+        
+        if UserDefaults.standard.bool(forKey: "fblogin") {
+            UserDefaults.standard.set(false, forKey: "fblogin")
+            self.fbLogin()
+            
+        } else {
+//            UserDefaults.standard.set(true, forKey: "fblogin")
+            UserDefaults.standard.removeObject(forKey: "fblogin")
+            self.naverLoginBtn.setImage(#imageLiteral(resourceName: "naverlogin"), for: .normal)
+            self.fbLoginBtn.setTitle("페이스북 로그인", for: .normal)
+            
+            print(UserDefaults.standard.string(forKey: "fblogin") as Any)
+        }
+    }
 }
 

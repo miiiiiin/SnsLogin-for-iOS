@@ -18,8 +18,6 @@ class SnsLogin : UIViewController, NaverThirdPartyLoginConnectionDelegate{
 
     func naverLogin() {
         
-        
-        
         let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
         loginInstance?.delegate = self
         loginInstance?.requestThirdPartyLogin()

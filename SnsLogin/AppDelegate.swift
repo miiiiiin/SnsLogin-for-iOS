@@ -8,12 +8,13 @@
 
 import UIKit
 import NaverThirdPartyLogin
+import FacebookCore
+import FacebookLogin
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
        
@@ -33,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         instance?.consumerSecret = kConsumerSecret
         instance?.appName = kServiceAppName
         
+        //MARK: FB Login
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
     }
@@ -48,25 +51,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // Mark: Kakao, FB Login
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         if KOSession.handleOpen(url) {
             return KOSession.handleOpen(url)
-//        }else {
-//
-//            guard let scheme = url.scheme else {
-//
-//                return false
-//            }
-//
-//            if scheme.hasPrefix("fb\(SDKSettings.appId)") {
-//
-//                return SDKApplicationDelegate.shared.application(app, open: url, options: options)
-//
-//            }
-//            return false
-//        }
+        }else {
+
+            guard let scheme = url.scheme else {
+
+                return false
+            }
+
+            if scheme.hasPrefix("fb\(SDKSettings.appId)") {
+
+                return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+
+                }
+            return false
         }
-         return false
     }
         
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -75,10 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     func applicationDidBecomeActive(_ application: UIApplication) {
         KOSession.handleDidBecomeActive() //kakao
-//        AppEventsLogger.activate(application) //facebook
+        AppEventsLogger.activate(application) //facebook
     }
-        
-  
-
 }
 

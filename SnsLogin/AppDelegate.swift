@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         //MARK: Google Login
-        GIDSignIn.sharedInstance().clientID = "964806179041-va4uos23mno7hs7hja107omlcjh4m7ti.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID = "388154442856-lbludmamso5kr7j9obd2nq55ot6o8q35.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
         return true 
@@ -93,6 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let familyName = user.profile.familyName
             let email = user.profile.email
             // [START_EXCLUDE]
+            
+            print("Sign-in Success \(user.profile.email)")
+
             NotificationCenter.default.post(
                 name: Notification.Name(rawValue: "ToggleAuthUINotification"),
                 object: nil,
@@ -112,7 +115,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             userInfo: ["statusText": "User has disconnected."])
         // [END_EXCLUDE]
     }
-    
         
     func applicationDidEnterBackground(_ application: UIApplication) {
         KOSession.handleDidEnterBackground()

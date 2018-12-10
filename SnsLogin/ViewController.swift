@@ -11,8 +11,9 @@ import NaverThirdPartyLogin
 import SnapKit
 import FacebookLogin
 import FacebookCore
+import GoogleSignIn
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, GIDSignInUIDelegate {
 
     let naverLoginBtn : UIButton = {
         let button = UIButton()
@@ -34,6 +35,21 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let googleLoginBtn : GIDSignInButton = {
+        let button = GIDSignInButton()
+//        button.setTitle("구글 로그인", for: .normal)
+//        button.setTitleColor(UIColor.black, for: .normal)
+        return button
+    }()
+    
+    let googleLogoutBtn : UIButton = {
+        let button = UIButton()
+        button.setTitle("구글 로그아웃", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.isHidden = true
+        return button
+    }()
+    
 
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
 
@@ -41,9 +57,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        GIDSignIn.sharedInstance()?.uiDelegate = self
+        
         UserDefaults.standard.set(true, forKey: "kakaologin")
         UserDefaults.standard.set(true, forKey: "naverlogin")
         UserDefaults.standard.set(true, forKey: "fblogin")
+        UserDefaults.standard.set(true, forKey: "googlelogin")
         self.view.backgroundColor = .white
         self.setButtonSelectors()
         self.setupLayout()
@@ -54,8 +73,9 @@ class ViewController: UIViewController {
         self.naverLoginBtn.addTarget(self, action: #selector(touchUpNaverloginBtn(_:)), for: .touchUpInside)
         self.ktLoginBtn.addTarget(self, action: #selector(touchUpKtLoginBtn(_:)), for: .touchUpInside)
         self.fbLoginBtn.addTarget(self, action: #selector(touchUpFbLoginBtn(_:)), for: .touchUpInside)
+        self.googleLoginBtn.addTarget(self, action: #selector(touchUpGoogleLoginBtn(_:)), for: .touchUpInside)
+        self.googleLogoutBtn.addTarget(self, action: #selector(touchUpGoogleLogoutBtn(_:)), for: .touchUpInside)
     }
-
 
     //MARK: AutoLayout
     func setupLayout() {
@@ -63,6 +83,8 @@ class ViewController: UIViewController {
         view.addSubview(naverLoginBtn)
         view.addSubview(ktLoginBtn)
         view.addSubview(fbLoginBtn)
+        view.addSubview(googleLoginBtn)
+        view.addSubview(googleLogoutBtn)
 
         naverLoginBtn.snp.makeConstraints { (const) in
             const.top.equalToSuperview().offset(160)
@@ -80,6 +102,20 @@ class ViewController: UIViewController {
         
         fbLoginBtn.snp.makeConstraints { (const) in
             const.top.equalTo(ktLoginBtn).offset(100)
+            const.centerX.equalToSuperview()
+            const.width.equalToSuperview().multipliedBy(0.4)
+            const.height.equalToSuperview().multipliedBy(0.08)
+        }
+        
+        googleLoginBtn.snp.makeConstraints { (const) in
+            const.top.equalTo(fbLoginBtn).offset(100)
+            const.centerX.equalToSuperview()
+            const.width.equalToSuperview().multipliedBy(0.4)
+            const.height.equalToSuperview().multipliedBy(0.08)
+        }
+        
+        googleLogoutBtn.snp.makeConstraints { (const) in
+            const.top.equalTo(fbLoginBtn).offset(100)
             const.centerX.equalToSuperview()
             const.width.equalToSuperview().multipliedBy(0.4)
             const.height.equalToSuperview().multipliedBy(0.08)
@@ -128,5 +164,25 @@ class ViewController: UIViewController {
             print("페이스북 로그아웃")
         }
     }//페북로그인
+    
+    @objc func touchUpGoogleLoginBtn(_ sender : UIButton) {
+        
+        if  UserDefaults.standard.bool(forKey: "googlelogin") {
+            UserDefaults.standard.set(false, forKey: "googlelogin")
+            GIDSignIn.sharedInstance().hasAuthInKeychain()
+//            print(GIDSignIn.sharedInstance().hasAuthInKeychain())
+            
+            googleLoginBtn.isHidden = true
+            googleLogoutBtn.isHidden = false
+        }
+        
+    }//구글로그인
+    
+    @objc func touchUpGoogleLogoutBtn(_ sender : UIButton) {
+        UserDefaults.standard.set(true, forKey: "googlelogin")
+            GIDSignIn.sharedInstance().signOut()
+            googleLoginBtn.isHidden = false
+            googleLogoutBtn.isHidden = true
+    }//구글로그인
 }
 

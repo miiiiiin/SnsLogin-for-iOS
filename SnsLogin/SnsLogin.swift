@@ -36,7 +36,7 @@ class SnsLogin : UIViewController, NaverThirdPartyLoginConnectionDelegate{
         alert.addAction(okAction)
         
         self.present(alert, animated: true, completion: nil)
-        
+            
     }
     
     //MARK: 네이버 앱 미설치 시 인증 진행 화면 띄움
